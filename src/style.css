@@ -1,0 +1,121 @@
+.search {
+    padding: 20px;
+}
+
+footer {
+    text-align: right;
+    font-family: Courier New;
+    font-size: 30px;
+    color: rgb(18, 44, 18);
+}
+
+body {
+    background-size: cover;
+    background-image: url("https://academichingu.com/wp-content/uploads/2023/04/ytryrty-750x458.jpeg");
+    background-repeat: no-repeat;
+}
+.group {
+    text-align: center;
+    border: 5px solid rgba(158, 156, 156, 0.5);
+    border-radius: 10px;
+    margin: 50px 100px; 
+    padding: 15px 15px;
+    background-color: rgba(158, 156, 156, 0.3);
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+}
+h1 {
+    font-family: 'Fredricka the Great';
+    font-size: 60px;
+    color: rgb(3, 81, 154);
+    text-align: center;
+}
+
+#date-time {
+    font-family: "Dancing Script";
+    text-align: center;
+  }
+
+
+.info {
+    text-align: left;
+    font-family: verdana;
+    width: 315px;
+}
+.weather {
+    font-family: Verdana;
+    font-size: 100px;
+    transform: translate(-70px, 0);
+}
+
+.week {
+    font-family: 'Dancing Script';
+    
+}
+.monday {
+   border: 1px solid rgba(158, 156, 156, 0.5);
+   border-radius: 5px;
+   margin: 2px auto;
+   padding: 2px 2px;
+   font-size: 30px; 
+}
+.tuesday {
+    border: 1px solid rgba(158, 156, 156, 0.5);
+    border-radius: 5px;
+    margin: 2px auto;
+    padding: 2px 2px;
+    font-size: 30px;
+}
+.wednesday {
+    border: 1px solid rgba(158, 156, 156, 0.5);
+    border-radius: 5px;
+    margin: 2px auto;
+    padding: 2px 2px;
+    font-size: 30px;
+}
+.thursday {
+    border: 1px solid rgba(158, 156, 156, 0.5);
+    border-radius: 5px;
+    margin: 2px auto;
+    padding: 2px 2px;
+    font-size: 30px;
+}
+.friday {
+    border: 1px solid rgba(158, 156, 156, 0.5);
+    border-radius: 5px;
+    margin: 2px auto;
+    padding: 2px 2px;
+    font-size: 30px;
+}
+.saturday {
+    border: 1px solid rgba(158, 156, 156, 0.5);
+    border-radius: 5px;
+    margin: 2px auto;
+    padding: 2px 2px;
+    font-size: 30px;
+}
+.sunday {
+    border: 1px solid rgba(158, 156, 156, 0.5);
+    border-radius: 5px;
+    margin: 2px auto;
+    padding: 2px 2px;
+    font-size: 30px;
+} 
+.col-6{
+    text-align: left;
+}
+.col-4 {
+    text-align: right;
+}
+#celsius {
+    font-size: 20px;
+}
+#fahrenheit {
+    font-size: 20px;
+}
+
