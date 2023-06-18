@@ -38,12 +38,13 @@ if (minute < 10) {
 let currentDate = document.getElementById("date-time");
 currentDate.innerHTML = `${day} ${date} ${month} / ${hour}:${minute}`;
 
-//Change city and current temperature
+//Change city, temperature and weather description
 function showParameters(response) {
   console.log(response.data);
   let temperatureElement = document.querySelector ("#temperature");
   let descriptionElement = document.querySelector("#description");
-  
+  let iconElement = document.querySelector("#icon");
+
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   descriptionElement.innerHTML = response.data.weather[0].description;
  
@@ -65,3 +66,30 @@ function changeCity(event) {
 
 let cityName = document.querySelector ("#searchform");
 cityName.addEventListener ("submit", changeCity);
+
+//fahrenheit and celsius
+function displayFahrenheit(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temperature");
+
+  celsisus.classList.remove("active");
+  fahrenheit.classList.add("active");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function displayCelsius(event) {
+  event.preventDefault();
+  celsisus.classList.add("active");
+  fahrenheit.classList.remove("active");
+  let temperature = document.querySelector("#temperature");
+  temperature.innerHTML = Math.round(celsiusTemperature);
+}
+
+let celsiusTemperature = null;
+
+let fahrenheit = document.querySelector("#fahrenheit");
+fahrenheit.addEventListener("click", displayFahrenheit);
+
+let celsisus = document.querySelector("#celsius");
+celsisus.addEventListener("click", displayCelsius);
