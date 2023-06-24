@@ -107,34 +107,45 @@ let celsisus = document.querySelector("#celsius");
 celsisus.addEventListener("click", displayCelsius);
 
 //display forecast (days of the week)
+
+function formatDay(tiemstamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
+
+  return days[day];
+}
+
 function displayForecast(response) {
-  console.log(response.data);
+  let forecast = response.data;
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class ="col">`;  //, crea una columna con una línea con varias columnas;hacemos un loop para mostrar lo que queramos varias veces.
   //en la siguiente línea si añado la cadena anterior parecerá lo de la cadena anterior y el bloque siguiente
   
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"]; //crea un loop para cada día, y pone cada día dentro de la variable day
-  days.forEach(function (day) {
+  //let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"]; //crea un loop para cada día, y pone cada día dentro de la variable day
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
     forecastHTML = forecastHTML + `  
   <div class="weather-forecast" id="forecast">
   <div class="monday">
       <div class="container">
           <div class="row">
               <div class="col-4" id="weather-forecast-date">
-                  ${day}
+                  ${formatDay(forecastDay.dt)}
               </div>
               <div class="col-4"> 
-                  <img src="https://openweathermap.org/img/wn/10d@2x.png" alt="" id="icon"/>
+                  <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" id="icon"/>
               </div>
               <div class="col-4" id="weather-forecast-temperature">
-                  18
+                  ${Math.round(forecastDay.temp)}º
               </div>
           </div>
       </div>
   </div>
 </div>
 `;
+    }
   });
   
  //con esto hacemos que forecastElement muestre en nuestra página (en HTML) una copia del forecast
