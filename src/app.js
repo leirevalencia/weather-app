@@ -43,7 +43,7 @@ currentDate.innerHTML = `${day} ${date} ${month} / ${hour}:${minute}`;
 function getForecast(coordinates) {
   console.log(coordinates);
   let apiKey = "2d96d64425dca1d6eda00d942a281c0d";
-  let apiURL = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`
+  let apiURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`
   console.log(apiURL);
   axios.get(apiURL).then(displayForecast);
 }
@@ -53,10 +53,14 @@ function showParameters(response) {
   let temperatureElement = document.querySelector ("#temperature");
   let descriptionElement = document.querySelector("#description");
   let iconElement = document.querySelector("#icon");
+  let windElement = document.querySelector("#wind-speed");
+  let humidityElement = document.querySelector("#humidity");
 
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   descriptionElement.innerHTML = response.data.weather[0].description;
   iconElement.setAttribute("src", `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  windElement.innerHTML = response.data.wind.speed + "Km/h";
+  humidityElement.innerHTML = response.data.main.humidity + "%";
 
   getForecast(response.data.coord); //nueva función para obtener las coordenadas
 
@@ -66,6 +70,9 @@ function search(city) {
   let apiKey = "2d96d64425dca1d6eda00d942a281c0d";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   console.log(apiUrl);
+  //Actualizamos nombre
+  let cityInput = document.querySelector("#control");
+  document.querySelector("#city").innerHTML = city; 
   axios.get(apiUrl).then(showParameters);
 }
 
@@ -108,7 +115,7 @@ celsisus.addEventListener("click", displayCelsius);
 
 //display forecast (days of the week)
 
-function formatDay(tiemstamp) {
+function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
@@ -117,7 +124,7 @@ function formatDay(tiemstamp) {
 }
 
 function displayForecast(response) {
-  let forecast = response.data;
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
   let forecastHTML = `<div class ="col">`;  //, crea una columna con una línea con varias columnas;hacemos un loop para mostrar lo que queramos varias veces.
@@ -138,7 +145,7 @@ function displayForecast(response) {
                   <img src="https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" id="icon"/>
               </div>
               <div class="col-4" id="weather-forecast-temperature">
-                  ${Math.round(forecastDay.temp)}º
+                  ${Math.round(forecastDay.temp.day)}º
               </div>
           </div>
       </div>
@@ -156,6 +163,17 @@ forecastHTML = forecastHTML + `</div>`; //lo repetimos dos veces, y cerramos div
 
   forecastElement.innerHTML = forecastHTML; 
 } //para que muestre lo mismo todas las veces que queramos, hacemos un loop
-displayForecast();
 
-//src="" alt="Clear" id="icon" class="float-left"
+//Ciudad actual inicializada a null
+let currentCity = null;
+//Metodo que busca la ciudad actual y actualiza el valor de currentCity
+function searchCurrentLocation(response) {
+  //llamada a la api
+  let apiKey = "2d96d64425dca1d6eda00d942a281c0d";
+  let apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+
+  //actualizar currentCity
+  
+}
+
+search("Madrid");
