@@ -22,21 +22,68 @@ let months = [
   "Nov",
   "Dec"
 ];
+
 let day = days[now.getDay()];
 let month = months[now.getMonth()];
 let date = now.getDate();
 let hour = now.getHours();
-if (hour < 10) {
-  //esta condición hace que si la hora o los minutos debajo sean menores de 10, tengan un 0 delante para que sean dos números
-  hour = `0${hour}`;
-}
 let minute = now.getMinutes();
-if (minute < 10) {
-  minute = `0${minute}`;
+let seconds = now.getSeconds();
+
+let timeDelay = 0;
+
+//Metodo que actualiza la hora
+function updateTime(){
+  let newDate = new Date();
+  console.log("TimeDelay: " + timeDelay); 
+  let delayHours = timeDelay/3600;
+  hour = now.getHours()+delayHours;
+  if (hour < 10) {
+    //esta condición hace que si la hora o los minutos debajo sean menores de 10, tengan un 0 delante para que sean dos números
+    hour = `0${hour}`;
+  }
+  //minute = now.getMinutes();
+  minute = newDate.getMinutes();
+  if (minute < 10) {
+    minute = `0${minute}`;
+  }
+  seconds = now.getSeconds();
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
+  let currentDate = document.getElementById("date-time");
+  currentDate.innerHTML = `${day} ${date} ${month} / ${hour}:${minute}`;
 }
 
-let currentDate = document.getElementById("date-time");
-currentDate.innerHTML = `${day} ${date} ${month} / ${hour}:${minute}`;
+//Forecast in order
+function getDayIndex(){
+  let index = -1;
+  //console.log("dia de hoy:" + day);
+  switch(day){
+    case 'Sunday':
+      index = 0;
+      break;
+    case 'Monday':
+      index = 1;
+      break;
+    case 'Tuesday':
+      index = 2;
+      break;
+    case 'Wednesday':
+      index = 3;
+      break;
+    case 'Thursday':
+      index = 4;
+      break;  
+    case 'Friday':
+      index = 5;
+      break;
+    case 'Saturday':
+      index = 6;
+      break;
+  }
+  return index;
+}
 
 //Change city, temperature and weather description
 
@@ -55,6 +102,8 @@ function showParameters(response) {
   let iconElement = document.querySelector("#icon");
   let windElement = document.querySelector("#wind-speed");
   let humidityElement = document.querySelector("#humidity");
+
+  timeDelay = response.data.timezone;
 
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
   descriptionElement.innerHTML = response.data.weather[0].description;
@@ -81,6 +130,7 @@ function changeCity(event) {
   let cityInput = document.querySelector("#control");
   document.querySelector("#city").innerHTML = cityInput.value; 
   search(cityInput.value);
+  updateTime();
 }
 
 let cityName = document.querySelector ("#searchform");
@@ -115,11 +165,22 @@ celsisus.addEventListener("click", displayCelsius);
 
 //display forecast (days of the week)
 
+function orderForecast(index){
+  var forecastDays = new Array(6);
+  let newIndex = index;
+  for (i=0; i < 6 ; i++){
+    newIndex = (newIndex + 1) % 6; 
+    forecastDays[i] = days[newIndex]
+  }
+  return forecastDays;
+}
+
 function formatDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
-
+  //let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
+  let dayIndex = getDayIndex();
+  let days = orderForecast(dayIndex);
   return days[day];
 }
 
@@ -176,4 +237,13 @@ function searchCurrentLocation(response) {
   
 }
 
+updateTime();
 search("Madrid");
+//testing
+/*
+let indiceHoy = getDayIndex();
+console.log("valor de indiceHoy: "+ indiceHoy);
+
+let ordenDiasSemana = orderForecast(4);
+console.log("OrdenDiasSemana: " + ordenDiasSemana);
+*/
