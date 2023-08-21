@@ -1,0 +1,3 @@
+This is my weather application. I used HTML, CSS; JavaScript, Weather API, Geolocation, grid, flexbox, Bootstrap,...
+It was difficult but turned out pretty well.
+# weather-app
